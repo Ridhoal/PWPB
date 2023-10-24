@@ -29,8 +29,9 @@ const registrasi = (req,res)=>{
             if(errorhash){
                 throw error
             }
-            const sql = `INSERT INTO user (username,password,token) VALUES ('${username},'${hash},'${token}')`
+            const sql = `INSERT INTO user (username,password,token) VALUES ('${username}','${hash}','${token}')`
             db.query(sql,(error,result)=>{
+                if(error) throw error
              return res.render ('register',{pesan : "registrasi berhasil ",clas: 'success' })
             })
         }
@@ -46,9 +47,8 @@ const auth = (req,res) => {
             pesan: "danger",
         });
     }
-       const sql = `SELECT * FROM user WHERE username = '$
-       {username}'`;
-       db.query(query,(error,result) => {
+       const sql = `SELECT * FROM user WHERE username = '${username}'`;
+       db.query(sql,(error,result) => {
         if (error) throw error;
         if (result.length === 0){
             return res.render("login",{

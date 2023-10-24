@@ -50,7 +50,7 @@ const pilihBarang = (req, res) => {
         if (error) throw error;
         let barangs = JSON.parse(JSON.stringify(result))
             const formatsaldo = (saldo) => {
-            return rupiah.toLocaleString('id-ID', {
+            return saldo.toLocaleString('id-ID', {
                 style: 'currency',
                 currency: 'IDR',
                 maximunFranctionDigits: 0
@@ -75,14 +75,16 @@ const pilihBarang = (req, res) => {
                         transaksi,
                         formatsaldo,
                         total,
-                        user:'',
+                        user:user,
                     })
                 })
             })
         })
-    }   
+    }   else{
 
-        res.render("barang", { barangs, idJ: id, transaksi, formatsaldo });
+        res.render("barang", { barangs, idJ: id, transaksi, formatsaldo, user:"" });
+    }
+
     })
 
     
